@@ -3,3 +3,6 @@
 # data files
 /data/*.csv
 /data/*.xlsx
+
+# env files
+.env
