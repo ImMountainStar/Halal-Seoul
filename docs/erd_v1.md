@@ -62,5 +62,7 @@ Because v1 uses two logical databases on one RDS instance, the following are log
 ## 4) Modeling notes
 
 - Ownership is user-based in both domains (`user_id`).
+- `products.sale_status` has three states: `노출`, `중지`, `품절`.
 - `order_items` stores unit price at order time (`unit_price_krw`).
+- `orders.customs_clearance_number` stores personal customs clearance code when required.
 - Scan image is intentionally excluded from DB by policy; only OCR/classification artifacts are persisted.

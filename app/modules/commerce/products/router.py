@@ -24,6 +24,7 @@ def list_products(
             product_id=p.product_id,
             name=p.name,
             price=p.price,
+            sale_status=p.sale_status,
         )
         for p in products
     ]
@@ -37,7 +38,6 @@ def get_product(product_id: str) -> ProductDetailResponse:
         product_id=p.product_id,
         name=p.name,
         price=p.price,
+        sale_status=p.sale_status,
         description=p.description,
-        stock_qty=p.stock_qty,
-        is_active=p.is_active,
     )

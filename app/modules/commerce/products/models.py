@@ -7,5 +7,4 @@ class Product:
     name: str
     price: int
     description: str | None
-    stock_qty: int
-    is_active: bool
+    sale_status: str

@@ -18,17 +18,15 @@ CREATE TABLE users (
 
 CREATE TABLE products (
   product_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  sku TEXT UNIQUE NOT NULL,
   name TEXT NOT NULL,
   description TEXT,
   price_krw INTEGER NOT NULL CHECK (price_krw >= 0),
-  stock_qty INTEGER NOT NULL DEFAULT 0 CHECK (stock_qty >= 0),
-  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  sale_status TEXT NOT NULL DEFAULT '노출' CHECK (sale_status IN ('노출', '중지', '품절')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_products_active ON products(is_active);
+CREATE INDEX idx_products_sale_status ON products(sale_status);
 CREATE INDEX idx_products_name ON products(name);
 
 CREATE TABLE carts (
@@ -66,6 +64,7 @@ CREATE TABLE orders (
   shipping_line1 TEXT NOT NULL,
   shipping_line2 TEXT,
   shipping_postal_code TEXT NOT NULL,
+  customs_clearance_number TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

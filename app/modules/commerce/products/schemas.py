@@ -5,6 +5,7 @@ class ProductItem(BaseModel):
     product_id: str
     name: str
     price: int
+    sale_status: str
 
 
 class ProductListResponse(BaseModel):
@@ -14,5 +15,3 @@ class ProductListResponse(BaseModel):
 
 class ProductDetailResponse(ProductItem):
     description: str | None = None
-    stock_qty: int = 0
-    is_active: bool = True

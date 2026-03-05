@@ -53,7 +53,8 @@ Auth: JWT (Bearer)
     {
       "product_id": "uuid",
       "name": "Chicken Sausage",
-      "price": 8900
+      "price": 8900,
+      "sale_status": "노출"
     }
   ],
   "next_cursor": "string|null"
@@ -102,7 +103,8 @@ Auth: JWT (Bearer)
     "line1": "string",
     "line2": "string",
     "postal_code": "string"
-  }
+  },
+  "customs_clearance_number": "string|null"
 }
 ```
 - response `201`

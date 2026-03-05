@@ -11,21 +11,19 @@ class InMemoryProductsRepository:
                 name="Chicken Sausage",
                 price=8900,
                 description="Sample product",
-                stock_qty=20,
-                is_active=True,
+                sale_status="노출",
             ),
             Product(
                 product_id="p-002",
                 name="Halal Kimchi Dumpling",
                 price=10900,
                 description="Sample product",
-                stock_qty=12,
-                is_active=True,
+                sale_status="품절",
             ),
         ]
 
     def list_products(self, q: str | None = None, limit: int = 20) -> list[Product]:
-        rows = [p for p in self._products if p.is_active]
+        rows = [p for p in self._products if p.sale_status != "중지"]
         if q:
             query = q.lower().strip()
             rows = [p for p in rows if query in p.name.lower()]
