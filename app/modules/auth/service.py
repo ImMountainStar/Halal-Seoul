@@ -17,11 +17,13 @@ class AuthService:
         if repo.get_user_by_email(email):
             raise BadRequestError("Email already registered")
 
+        normalized_email = email.lower()
         user = User(
             user_id=str(uuid4()),
-            email=email.lower(),
+            email=normalized_email,
             password_hash=hash_password(password),
             name=name,
+            role=self._resolve_role(normalized_email),
         )
         return repo.create_user(user)
 
@@ -30,7 +32,13 @@ class AuthService:
         if not user or not verify_password(password, user.password_hash):
             raise UnauthorizedError("Invalid email or password")
 
-        return create_access_token(user.user_id)
+        return create_access_token(user.user_id, user.role)
+
+    def _resolve_role(self, email: str) -> str:
+        admin_emails = {value.strip().lower() for value in repo.get_admin_emails() if value.strip()}
+        if email in admin_emails:
+            return "admin"
+        return "user"
 
 
 service = AuthService()

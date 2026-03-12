@@ -29,7 +29,7 @@ Last updated: 2026-03-04
 - Save scan logs except images
 - Do not store raw image files
 - Discard image immediately after OCR
-- Store OCR text and classification results only
+- Store classification results and request metadata only
 - Success definition:
   - success: extracted ingredient count >= 1
   - failure: extracted ingredient count = 0
@@ -77,7 +77,7 @@ Last updated: 2026-03-04
 - Engine: PostgreSQL (AWS RDS)
 - Logical split:
   - `commerce_db`: products, users, orders, payments
-  - `scanlog_db`: OCR text, scan sessions, ingredient results, dispute reports
+  - `scanlog_db`: scan sessions, ingredient results, dispute reports
 - v1 deployment:
   - One RDS PostgreSQL instance
   - Two logical databases for separation

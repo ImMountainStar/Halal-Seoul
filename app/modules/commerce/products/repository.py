@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from uuid import uuid4
+
 from app.modules.commerce.products.models import Product
 
 
@@ -34,6 +36,44 @@ class InMemoryProductsRepository:
             if product.product_id == product_id:
                 return product
         return None
+
+    def create_product(
+        self,
+        name: str,
+        price: int,
+        description: str | None,
+        sale_status: str,
+    ) -> Product:
+        product = Product(
+            product_id=str(uuid4()),
+            name=name,
+            price=price,
+            description=description,
+            sale_status=sale_status,
+        )
+        self._products.append(product)
+        return product
+
+    def update_product(
+        self,
+        product_id: str,
+        name: str | None = None,
+        price: int | None = None,
+        description: str | None = None,
+        sale_status: str | None = None,
+    ) -> Product | None:
+        product = self.get_product(product_id)
+        if not product:
+            return None
+        if name is not None:
+            product.name = name
+        if price is not None:
+            product.price = price
+        if description is not None:
+            product.description = description
+        if sale_status is not None:
+            product.sale_status = sale_status
+        return product
 
 
 repo = InMemoryProductsRepository()

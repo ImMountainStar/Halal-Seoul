@@ -1,5 +1,7 @@
 -- Halal Seoul scanlog_db schema v1
 -- PostgreSQL 15+
+-- naming note: business conversations may call this a "scan request",
+-- but persisted/request-domain naming is standardized as "scan session".
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -21,13 +23,12 @@ CREATE TABLE scan_sessions (
   scan_session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL,
   success BOOLEAN NOT NULL,
-  lang TEXT NOT NULL DEFAULT 'en',
+  lang TEXT NOT NULL DEFAULT 'ko',
   ocr_engine TEXT NOT NULL DEFAULT 'google_vision',
   ocr_attempt_count INTEGER NOT NULL DEFAULT 1 CHECK (ocr_attempt_count >= 1 AND ocr_attempt_count <= 5),
   ingredient_count INTEGER NOT NULL DEFAULT 0 CHECK (ingredient_count >= 0),
   overall_risk TEXT NOT NULL CHECK (overall_risk IN ('halal', 'haram', 'mashbooh', 'unknown')),
   latency_ms INTEGER NOT NULL CHECK (latency_ms >= 0),
-  raw_ocr_text TEXT,
   trace_id TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

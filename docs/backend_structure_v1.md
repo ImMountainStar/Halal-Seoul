@@ -94,6 +94,11 @@ app.include_router(admin_reports_router, prefix="/api/v1/admin/reports", tags=["
 ## 4. Runtime Flow
 
 ### 4.1 Scan request flow
+v1 note:
+- scan flow is sync-first
+- request-level `status` is not persisted in v1
+- final outcome is represented by `success` + `overall_risk`
+
 1. `POST /scan/sessions`
 2. API receives image in memory
 3. OCR request to Google Vision
@@ -107,6 +112,10 @@ app.include_router(admin_reports_router, prefix="/api/v1/admin/reports", tags=["
 3. enqueue SQS message if still failed
 4. worker retries up to max 5 attempts
 5. persist final result as success or `success=false`
+
+v1 modeling note:
+- retry is tracked by `ocr_attempt_count`
+- per-retry event table is out of v1 scope
 
 ## 5. Cross-Cutting Concerns
 

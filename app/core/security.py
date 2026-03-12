@@ -29,10 +29,11 @@ def verify_password(password: str, password_hash: str) -> bool:
     return hmac.compare_digest(expected, actual)
 
 
-def create_access_token(subject: str) -> str:
+def create_access_token(subject: str, role: str) -> str:
     now = datetime.now(UTC)
     payload = {
         "sub": subject,
+        "role": role,
         "type": "access",
         "iat": int(now.timestamp()),
         "exp": int((now + timedelta(minutes=settings.jwt_access_ttl_min)).timestamp()),

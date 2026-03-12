@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Dict
 
+from app.core.config import settings
 from app.modules.auth.models import User
 
 
@@ -15,6 +16,9 @@ class InMemoryAuthRepository:
     def create_user(self, user: User) -> User:
         self._users_by_email[user.email.lower()] = user
         return user
+
+    def get_admin_emails(self) -> list[str]:
+        return settings.admin_emails.split(",")
 
 
 repo = InMemoryAuthRepository()

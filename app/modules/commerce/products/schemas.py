@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ProductItem(BaseModel):
@@ -15,3 +15,17 @@ class ProductListResponse(BaseModel):
 
 class ProductDetailResponse(ProductItem):
     description: str | None = None
+
+
+class AdminProductCreateRequest(BaseModel):
+    name: str = Field(min_length=1)
+    price: int = Field(ge=0)
+    description: str | None = None
+    sale_status: str
+
+
+class AdminProductUpdateRequest(BaseModel):
+    name: str | None = None
+    price: int | None = Field(default=None, ge=0)
+    description: str | None = None
+    sale_status: str | None = None

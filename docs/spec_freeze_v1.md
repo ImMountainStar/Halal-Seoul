@@ -25,7 +25,7 @@ Status: In progress (owner decisions reflected)
   - worker path: up to 5 total attempts
 - Scan image policy:
   - do not persist raw image
-  - keep OCR text/result only
+  - keep classification result and request metadata only
 
 ## 3) Data/Status Freeze (Confirmed)
 - Scan statuses: `halal`, `haram`, `mashbooh`, `unknown`
@@ -76,4 +76,4 @@ Status: In progress (owner decisions reflected)
 
 ## 6) Immediate Next Actions
 1. Update `docs/api_v1.md` and related docs only where decisions change behavior.
-2. Start implementation from Auth -> Catalog/Cart -> Order/Payment -> Scan -> Admin.
+2. Prioritize commerce completion in this order: Catalog/Cart -> Order/Payment -> Admin -> Scan integration.

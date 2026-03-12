@@ -19,7 +19,9 @@ def test_unauthenticated_user_cannot_confirm_payment() -> None:
     )
 
     assert response.status_code == 401
-    assert response.json()["detail"] == "Login required"
+    assert response.json()["error_code"] == "UNAUTHORIZED"
+    assert response.json()["message"] == "Login required"
+    assert response.json()["trace_id"]
 
 
 def test_member_can_confirm_payment() -> None:

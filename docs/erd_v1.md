@@ -46,6 +46,8 @@ erDiagram
 ```
 
 ### scanlog_db tables
+- canonical naming note:
+  - business discussions may say `scan request`, but schema/API/code standardize on `scan session`
 - `halal_ingredients(ingredient_id PK)`
 - `scan_sessions(scan_session_id PK, user_id FK logical reference)`
 - `ingredient_results(ingredient_result_id PK, scan_session_id FK -> scan_sessions.scan_session_id)`
